@@ -12,3 +12,5 @@ routes(app);
 app.listen(port);
 
 console.log('Object API server started on port: ' + port);
+
+module.exports = app;

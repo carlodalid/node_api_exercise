@@ -11,7 +11,7 @@ exports.save = function(jsonData, done) {
     json: true,
   }, function(error, response, body){
     if (error) return done('Unable to connect to CouchDB');
-    if (response.statusCode === 200) {
+    if (response.statusCode === 201) {
       done(null, jsonData);
     }
   });
