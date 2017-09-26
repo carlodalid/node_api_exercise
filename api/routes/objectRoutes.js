@@ -2,10 +2,9 @@
 module.exports = function(app) {
   var objectController = require('../controllers/objectController');
 
-  // object routes
   app.route('/object')
-    .post(objectController.createObject);
+    .post(objectController.insertObject);
 
   app.route('/object/:key')
-    .get(objectController.getObject);
+    .get(objectController.findObject);
 };
