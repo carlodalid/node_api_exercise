@@ -1,3 +1,5 @@
+require('dotenv').load();
+
 var express = require('express');
 var app     = express();
 var port    = process.env.PORT || 3000;
@@ -10,7 +12,6 @@ var routes = require('./api/routes/objectRoutes');
 routes(app);
 
 app.listen(port);
-
 console.log('Object API server started on port: ' + port);
 
 module.exports = app;

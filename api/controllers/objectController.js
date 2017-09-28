@@ -1,17 +1,21 @@
-'use strict';
-var objectModel = require('../models/objectModel');
-var moment      = require('moment');
+const objectModel = require('../models/objectModel');
+const moment      = require('moment');
 
 exports.insertObject = function(request, response) {
   var body = request.body;
   var keys = Object.keys(body);
 
-  var timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+  if (keys.length > 1 || keys[0].length === 0) {
+    return response.status(400).send('Bad Request');
+  }
 
-  var dataObj       = new Object;
-  dataObj.key       = keys[0];
-  dataObj.value     = body[dataObj.key];
-  dataObj.timestamp = timestamp;
+  var timestamp = moment().utcOffset(0).format('YYYY-MM-DD HH:mm:ss');
+
+  var dataObj = {
+    key: keys[0],
+    value: body[keys[0]],
+    timestamp: timestamp
+  }
 
   objectModel.save(dataObj, function(error, doc){
     if (error) {
@@ -27,11 +31,11 @@ exports.findObject = function(request, response) {
   var timestamp = request.query.timestamp;
 
   if (timestamp !== undefined && moment.unix(timestamp) !== 'Invalid date'){
-    timestamp = moment.unix(timestamp).format('YYYY-MM-DD HH:mm:ss');
+    timestamp = moment.unix(timestamp).utcOffset(0).format('YYYY-MM-DD HH:mm:ss');
   } else if (timestamp === undefined) {
-    timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    timestamp = moment().utcOffset(0).format('YYYY-MM-DD HH:mm:ss');
   } else {
-    response.status(400).send('Invalid timestamp parameter');
+    return response.status(400).send('Bad Request');
   }
 
   objectModel.find(objectkey, timestamp, function(error, doc){
