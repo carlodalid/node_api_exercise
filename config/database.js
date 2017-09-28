@@ -16,11 +16,11 @@ var database = {
     name: process.env.DEV_NAME || 'api_development'
   },
   production: {
-    user: process.env.USER,
-    pass: process.env.PASS,
-    host: process.env.HOST,
-    port: process.env.PORT,
-    name: process.env.NAME
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASS,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    name: process.env.DB_NAME
   }
 }
 
