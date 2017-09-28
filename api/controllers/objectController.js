@@ -2,12 +2,12 @@ const objectModel = require('../models/objectModel');
 const moment      = require('moment');
 
 exports.insertObject = function(request, response) {
-  var body = request.body;
-  var keys = Object.keys(body);
-
-  if (keys.length > 1 || keys[0].length === 0) {
+  if (Object.keys(request.body).length === 0 || Object.keys(request.body)[0].length === 0) {
     return response.status(400).send('Bad Request');
   }
+
+  var body = request.body;
+  var keys = Object.keys(body);
 
   var timestamp = moment().utcOffset(0).format('YYYY-MM-DD HH:mm:ss');
 

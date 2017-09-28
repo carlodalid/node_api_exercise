@@ -1,7 +1,7 @@
 require('dotenv').load();
 
 const request = require('request');
-const env     = process.env.NODE_ENV || 'development'
+const env     = process.env.NODE_ENV || 'development';
 
 const db      = require('../../config/database')[env];
 const dbURL   = "http://" + db.user + ":" + db.pass + "@" + db.host + ":" + db.port + "/" + db.name;
